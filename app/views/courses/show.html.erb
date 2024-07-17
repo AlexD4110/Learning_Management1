@@ -1,0 +1,43 @@
+<style>
+    .content-container {
+        max-width: 50%; /* Adjust this value to make the containers smaller */
+        margin: auto; /* Centers the content */
+    }
+    .rounded-video {
+        border-radius: 10px; /* Adjust this value for more or less rounding */
+    }
+    .main-container {
+        padding-bottom: 100px; /* Adds space at the bottom */
+    }
+    .video-container {
+        margin-bottom: 20px; /* Adds space below the video container */
+    }
+</style>
+
+<div class="mx-auto w-full main-container">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <% if @course.lessons.any? && @course.lessons.first.video.present? %>
+    <div class="content-container rounded mb-6 video-container"> <!-- Modified class for video container -->
+      <%= video_tag @course.lessons.first.video, controls: true, class: "w-full rounded-video" %>
+    </div>
+  <% end %>
+
+  <div class="border p-6 rounded content-container"> <!-- Shared container style for the categories -->
+    <div class="flex flex-wrap gap-2 mb-4">
+      <% @course.categories.each do |category| %>
+        <div class="bg-amaranth-100 text-amaranth-800 text-xs font-medium px-2.5 py-0.5 rounded">
+          <%= category.name %>
+        </div>
+      <% end %>
+    </div>
+    <span><%= @course.lessons.count %> <%= "Lesson".pluralize(@course.lessons.count) %> </span>
+  </div>
+</div>
+
+
+
+
+
